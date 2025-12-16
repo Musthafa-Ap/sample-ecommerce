@@ -82,4 +82,3 @@ class ProductDetailsScreen extends StatelessWidget {
     );
   }
 }
-///////
