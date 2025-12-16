@@ -60,6 +60,22 @@ class ProductDetailsScreen extends StatelessWidget {
               'Inclusive of all taxes',
               style: TextStyle(fontSize: 12.sp, color: Colors.black),
             ),
+
+            SizedBox(height: 20.h),
+            ElevatedButton(
+              onPressed: () { },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xffDD8560),
+                minimumSize: Size(double.infinity, 45.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+              ),
+              child: Text(
+                'Add to Cart',
+                style: TextStyle(fontSize: 18.sp, color: Colors.white),
+              ),
+            ),
           ],
         ),
       ),
