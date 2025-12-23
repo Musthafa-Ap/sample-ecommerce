@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sample_app/product_details_screen.dart';
 import 'package:sample_app/product_model.dart';
 
 import 'common_app_bar.dart';
+
+ValueNotifier<bool> switchNotifier = ValueNotifier(true);
 
 class ProductsListingScreen extends StatefulWidget {
   const ProductsListingScreen({super.key});
@@ -15,74 +19,76 @@ class ProductsListingScreen extends StatefulWidget {
 class _ProductsListingScreenState extends State<ProductsListingScreen> {
   List wishlistItems = [];
 
+  List<ProductModel> productsList = [
+    ProductModel(
+      id: 1,
+      name: '21WN',
+      image: 'assets/images/product1.png',
+      description: 'reversible angora cardigan',
+      price: 120,
+    ),
+
+    ProductModel(
+      id: 2,
+      name: '21SS',
+      image: 'assets/images/product2.png',
+      description: 'cotton casual shirt',
+      price: 80,
+    ),
+    ProductModel(
+      id: 3,
+      name: '21FW',
+      image: 'assets/images/product3.png',
+      description: 'leather boots',
+      price: 150,
+    ),
+    ProductModel(
+      id: 4,
+      name: '22SP',
+      image: 'assets/images/product4.png',
+      description: 'denim jeans',
+      price: 90,
+    ),
+    ProductModel(
+      id: 5,
+      name: '22SS',
+      image: 'assets/images/product1.png',
+      description: 'cotton casual shirt',
+      price: 80,
+    ),
+    ProductModel(
+      id: 6,
+      name: '22FW',
+      image: 'assets/images/product2.png',
+      description: 'leather boots',
+      price: 150,
+    ),
+    ProductModel(
+      id: 7,
+      name: '23SP',
+      image: 'assets/images/product3.png',
+      description: 'denim jeans',
+      price: 90,
+    ),
+    ProductModel(
+      id: 8,
+      name: '23SS',
+      image: 'assets/images/product4.png',
+      description: 'cotton casual shirt',
+      price: 80,
+    ),
+    ProductModel(
+      id: 9,
+      name: '23FW',
+      image: 'assets/images/product1.png',
+      description: 'leather boots',
+      price: 150,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    List<ProductModel> productsList = [
-      ProductModel(
-        id: 1,
-        name: '21WN',
-        image: 'assets/images/product1.png',
-        description: 'reversible angora cardigan',
-        price: 120,
-      ),
-
-      ProductModel(
-        id: 2,
-        name: '21SS',
-        image: 'assets/images/product2.png',
-        description: 'cotton casual shirt',
-        price: 80,
-      ),
-      ProductModel(
-        id: 3,
-        name: '21FW',
-        image: 'assets/images/product3.png',
-        description: 'leather boots',
-        price: 150,
-      ),
-      ProductModel(
-        id: 4,
-        name: '22SP',
-        image: 'assets/images/product4.png',
-        description: 'denim jeans',
-        price: 90,
-      ),
-      ProductModel(
-        id: 5,
-        name: '22SS',
-        image: 'assets/images/product1.png',
-        description: 'cotton casual shirt',
-        price: 80,
-      ),
-      ProductModel(
-        id: 6,
-        name: '22FW',
-        image: 'assets/images/product2.png',
-        description: 'leather boots',
-        price: 150,
-      ),
-      ProductModel(
-        id: 7,
-        name: '23SP',
-        image: 'assets/images/product3.png',
-        description: 'denim jeans',
-        price: 90,
-      ),
-      ProductModel(
-        id: 8,
-        name: '23SS',
-        image: 'assets/images/product4.png',
-        description: 'cotton casual shirt',
-        price: 80,
-      ),
-      ProductModel(
-        id: 9,
-        name: '23FW',
-        image: 'assets/images/product1.png',
-        description: 'leather boots',
-        price: 150,
-      ),
-    ];
+    log('------rebuilding products listing screen------');
 
     return Scaffold(
       backgroundColor: Color(0xffFFFFFF),
@@ -96,6 +102,7 @@ class _ProductsListingScreenState extends State<ProductsListingScreen> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+           
             Row(
               children: [
                 categoryCard('Women'),
@@ -140,10 +147,12 @@ class _ProductsListingScreenState extends State<ProductsListingScreen> {
                           alignment: Alignment.bottomRight,
                           child: IconButton(
                             onPressed: () {
-                             setState(() {
+                              if (wishlistItems.contains(product.id)) {
+                                wishlistItems.remove(product.id);
+                              } else {
                                 wishlistItems.add(product.id);
-                             });
-                              print(wishlistItems);
+                              }
+                              setState(() {});
                             },
                             icon: Icon(
                               wishlistItems.contains(product.id)
