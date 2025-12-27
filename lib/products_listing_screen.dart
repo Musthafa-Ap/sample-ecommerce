@@ -7,7 +7,6 @@ import 'package:sample_app/product_model.dart';
 
 import 'common_app_bar.dart';
 
-ValueNotifier<bool> switchNotifier = ValueNotifier(true);
 
 class ProductsListingScreen extends StatefulWidget {
   const ProductsListingScreen({super.key});
@@ -19,72 +18,6 @@ class ProductsListingScreen extends StatefulWidget {
 class _ProductsListingScreenState extends State<ProductsListingScreen> {
   List wishlistItems = [];
 
-  List<ProductModel> productsList = [
-    ProductModel(
-      id: 1,
-      name: '21WN',
-      image: 'assets/images/product1.png',
-      description: 'reversible angora cardigan',
-      price: 120,
-    ),
-
-    ProductModel(
-      id: 2,
-      name: '21SS',
-      image: 'assets/images/product2.png',
-      description: 'cotton casual shirt',
-      price: 80,
-    ),
-    ProductModel(
-      id: 3,
-      name: '21FW',
-      image: 'assets/images/product3.png',
-      description: 'leather boots',
-      price: 150,
-    ),
-    ProductModel(
-      id: 4,
-      name: '22SP',
-      image: 'assets/images/product4.png',
-      description: 'denim jeans',
-      price: 90,
-    ),
-    ProductModel(
-      id: 5,
-      name: '22SS',
-      image: 'assets/images/product1.png',
-      description: 'cotton casual shirt',
-      price: 80,
-    ),
-    ProductModel(
-      id: 6,
-      name: '22FW',
-      image: 'assets/images/product2.png',
-      description: 'leather boots',
-      price: 150,
-    ),
-    ProductModel(
-      id: 7,
-      name: '23SP',
-      image: 'assets/images/product3.png',
-      description: 'denim jeans',
-      price: 90,
-    ),
-    ProductModel(
-      id: 8,
-      name: '23SS',
-      image: 'assets/images/product4.png',
-      description: 'cotton casual shirt',
-      price: 80,
-    ),
-    ProductModel(
-      id: 9,
-      name: '23FW',
-      image: 'assets/images/product1.png',
-      description: 'leather boots',
-      price: 150,
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -111,80 +44,80 @@ class _ProductsListingScreenState extends State<ProductsListingScreen> {
               ],
             ),
             SizedBox(height: 17.h),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 15.h,
-                  crossAxisSpacing: 12.w,
-                  childAspectRatio: 165.w / 240.h,
-                ),
-                itemBuilder: (context, index) {
-                  final product = productsList[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return ProductDetailsScreen(product: product);
-                          },
-                        ),
-                      );
-                    },
-                    child: Column(
-                      crossAxisAlignment: .start,
-                      children: [
-                        Container(
-                          height: 170.h,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(product.image),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          alignment: Alignment.bottomRight,
-                          child: IconButton(
-                            onPressed: () {
-                              if (wishlistItems.contains(product.id)) {
-                                wishlistItems.remove(product.id);
-                              } else {
-                                wishlistItems.add(product.id);
-                              }
-                              setState(() {});
-                            },
-                            icon: Icon(
-                              wishlistItems.contains(product.id)
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: Color(0xffDD8560),
-                            ),
-                          ),
-                        ),
+            // Expanded(
+            //   child: GridView.builder(
+            //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 2,
+            //       mainAxisSpacing: 15.h,
+            //       crossAxisSpacing: 12.w,
+            //       childAspectRatio: 165.w / 240.h,
+            //     ),
+            //     itemBuilder: (context, index) {
+            //       final product = productsList[index];
+            //       return GestureDetector(
+            //         onTap: () {
+            //           Navigator.push(
+            //             context,
+            //             MaterialPageRoute(
+            //               builder: (context) {
+            //                 return ProductDetailsScreen(product: product);
+            //               },
+            //             ),
+            //           );
+            //         },
+            //         child: Column(
+            //           crossAxisAlignment: .start,
+            //           children: [
+            //             Container(
+            //               height: 170.h,
+            //               width: double.infinity,
+            //               decoration: BoxDecoration(
+            //                 image: DecorationImage(
+            //                   image: AssetImage(product.image),
+            //                   fit: BoxFit.cover,
+            //                 ),
+            //               ),
+            //               alignment: Alignment.bottomRight,
+            //               child: IconButton(
+            //                 onPressed: () {
+            //                   if (wishlistItems.contains(product.id)) {
+            //                     wishlistItems.remove(product.id);
+            //                   } else {
+            //                     wishlistItems.add(product.id);
+            //                   }
+            //                   setState(() {});
+            //                 },
+            //                 icon: Icon(
+            //                   wishlistItems.contains(product.id)
+            //                       ? Icons.favorite
+            //                       : Icons.favorite_border,
+            //                   color: Color(0xffDD8560),
+            //                 ),
+            //               ),
+            //             ),
 
-                        SizedBox(height: 8.h),
-                        Text(product.name),
-                        Text(
-                          product.description,
-                          style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-                        ),
-                        SizedBox(height: 2.h),
-                        Text(
-                          '₹${product.price}',
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            color: Color(0xffDD8560),
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                itemCount: productsList.length,
-              ),
-            ),
+            //             SizedBox(height: 8.h),
+            //             Text(product.name),
+            //             Text(
+            //               product.description,
+            //               style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+            //             ),
+            //             SizedBox(height: 2.h),
+            //             Text(
+            //               '₹${product.price}',
+            //               style: TextStyle(
+            //                 fontSize: 16.sp,
+            //                 color: Color(0xffDD8560),
+            //                 fontWeight: FontWeight.w700,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       );
+            //     },
+            //     itemCount: productsList.length,
+            //   ),
+            // ),
           ],
         ),
       ),
