@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_app/products_provider.dart';
-import 'package:sample_app/profile_screen.dart';
+import 'package:sample_app/features/cart/view_model/cart_provider.dart';
+import 'package:sample_app/features/products_listing/view_model/products_provider.dart';
+import 'package:sample_app/features/profile/view/profile_screen.dart';
 
-import 'products_listing_screen.dart';
+import 'features/products_listing/view/products_listing_screen.dart';
 
 void main() {
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => ProductsProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProductsProvider()),
+
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -32,7 +37,6 @@ class _MyAppState extends State<MyApp> {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-      
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Amazon',

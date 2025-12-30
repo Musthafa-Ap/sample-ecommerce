@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sample_app/product_model.dart';
+import 'package:provider/provider.dart';
+import 'package:sample_app/features/cart/view_model/cart_provider.dart';
+import 'package:sample_app/features/products_listing/view_model/products_provider.dart';
 
 import 'common_app_bar.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  final ProductModel product;
-  const ProductDetailsScreen({super.key, required this.product});
+
+  const ProductDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+  
+   ProductsProvider provider = context.watch<ProductsProvider>();
+
+   final product = provider.productDetails;
+
     return Scaffold(
       backgroundColor: Color(0xffFFFFFF),
 
@@ -23,7 +30,7 @@ class ProductDetailsScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Image.asset(
-              product.image,
+              product?.image??'',
               height: 280.h,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -33,7 +40,7 @@ class ProductDetailsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  product.name,
+                  product?.name??'Product Name',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
 
@@ -42,13 +49,13 @@ class ProductDetailsScreen extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              product.description,
+              product?.description??'',
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
 
             SizedBox(height: 10),
             Text(
-              '₹${product.price}',
+              '₹${product?.price??0}',
               style: TextStyle(
                 fontSize: 25.sp,
                 color: Color(0xffDD8560),
@@ -63,7 +70,12 @@ class ProductDetailsScreen extends StatelessWidget {
 
             SizedBox(height: 20.h),
             ElevatedButton(
-              onPressed: () { },
+              onPressed: () {
+                context.read<CartProvider>().addToCart(product!);
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text('Item added to cart')));
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xffDD8560),
                 minimumSize: Size(double.infinity, 45.h),

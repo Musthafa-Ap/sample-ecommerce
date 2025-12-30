@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'product_model.dart';
+import '../model/product_model.dart';
 
-class ProductsProvider extends ChangeNotifier{
-    List<ProductModel> productsList = [
+class ProductsProvider extends ChangeNotifier {
+  List<ProductModel> productsList = [
     ProductModel(
       id: 1,
       name: '21WN',
@@ -70,4 +70,9 @@ class ProductsProvider extends ChangeNotifier{
     ),
   ];
 
+  ProductModel? productDetails;
+  void setProductDetails(ProductModel product) {
+    productDetails = product;
+    notifyListeners();
+  }
 }
